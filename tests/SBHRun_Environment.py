@@ -18,7 +18,7 @@ from synbiohub_adapter.SynBioHubUtil import *
 from sbol import *
 
 '''
-	This class will perform unit testing to query information from SynBioHub's instances. 
+	A stress testing environment to test SynBioHub's performance.  
 
 	Installation Requirement(s):
 	- This test environment requires two third party packages to display plot: 
