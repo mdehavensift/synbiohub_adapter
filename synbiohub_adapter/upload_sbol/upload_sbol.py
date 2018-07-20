@@ -8,6 +8,13 @@ from synbiohub_adapter.query_synbiohub import SynBioHubQuery
 from synbiohub_adapter.SynBioHubUtil import SD2Constants
 from pySBOLx.pySBOLx import Experiment
 
+# urllib.parse not available in python2
+# install the aliases so that it will work
+from future.standard_library import install_aliases
+install_aliases()
+
+import urllib.parse
+
 
 def main(args=None):
     if args is None:
@@ -55,8 +62,9 @@ class SynBioHub():
         self.url = url
         self.part_shop = PartShop(url + '/')
         self.part_shop.login(email, password)
+        login_url = urllib.parse.urljoin(url, 'login')
         response = requests.post(
-            url + '/login', headers={'Accept': 'text/plain'}, data={'email': email, 'password': password})
+            login_url, headers={'Accept': 'text/plain'}, data={'email': email, 'password': password})
         self.token = response.content.decode('UTF-8')
         self.sparql = sparql
         self.locked_predicates = locked_predicates
